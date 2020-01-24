@@ -23,12 +23,23 @@ $(document).ready(function() {
 
             $("#question").html(questions[questionIndex].q);
             console.log(questions[questionIndex].q);
+            console.log(questions[questionIndex].a);
+            answer(); //adds 4 buttons with associated answers inside
 
         } else {
 
             $(".answerBox").textContent = "Game Over!";
 
         }
+    }
+
+    function answer(){
+        $.each(questions[questionIndex].a, function(index, value) {
+            // console.log(index + value);
+
+            var ansBtn = $("<button>").text(value);//creates new button with answer
+            $(".answerBox").append(ansBtn);//appends new btn to answerBox div
+        });
     }
 
     function run() { //full timer function
