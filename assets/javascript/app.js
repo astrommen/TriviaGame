@@ -4,12 +4,14 @@ $(document).ready(function() {
     var count = 30;
     var interCount;
     var correctScore = 0;
+    var wrongScore = 0;
+    var timedOutScore = 0;
     var questionIndex = 0;
 
     //The array of questions for out game
     var questions = [
         { q: "Which house was Harry Potter sorted into?", 
-            a: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]},
+            a: ["Gryffindor", "Hufflepuff", "Ravenclaw\b", "Slytherin"]},
         { q: "What is the name of the Harry's Wizard School?", 
             a: ["Hogwarts", "Beauxbatons", "Ilvermorny", "Durmstrang"]},
         { q: "Who is Harry's godfather?", 
@@ -27,20 +29,40 @@ $(document).ready(function() {
             answer(); //adds 4 buttons with associated answers inside
 
         } else {
-
+            timedOutScore++;
             $(".answerBox").textContent = "Game Over!";
+            answer();
 
         }
     }
-
+    
     function answer(){
+        
+        //loop through index in answer and grab the value
         $.each(questions[questionIndex].a, function(index, value) {
             // console.log(index + value);
-
-            var ansBtn = $("<button>").text(value);//creates new button with answer
+            
+            var ansBtn = $("<button>").text(value).addClass("ansBtn");//creates new button with answer
+            
             $(".answerBox").append(ansBtn);//appends new btn to answerBox div
         });
+        
+        $(".ansBtn").on("click", function(){
+            alert("I've been clicked");
+            // var btnContent = .textContent($(".ansBtn"))
+            console.log($(".ansBtn").textContent);
+            
+    
+            // if ($(".ansBtn").includes("\b")){
+            //     correctScore++;
+            // } else {
+            //     wrongScore++;
+            // }
+            // questionIndex++;
+        });
+        
     }
+
 
     function run() { //full timer function
         
@@ -83,6 +105,9 @@ $(document).ready(function() {
         
     });
     
+    console.log(correctScore);
+    console.log(wrongScore);
+    console.log(timedOutScore);
 
     
 });
