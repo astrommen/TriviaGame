@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //Persistent global variables
-    var count = 30;
+    // var count = 30;
     var interCount;
     var correctScore = 0;
     var wrongScore = 0;
@@ -11,60 +11,82 @@ $(document).ready(function() {
     //The array of questions for out game
     var questions = [
         { q: "Which house was Harry Potter sorted into?", 
-            a: ["Gryffindor", "Hufflepuff", "Ravenclaw\b", "Slytherin"]},
+            a: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
+            correct: "Gryffindor"},
         { q: "What is the name of the Harry's Wizard School?", 
-            a: ["Hogwarts", "Beauxbatons", "Ilvermorny", "Durmstrang"]},
+            a: ["Hogwarts", "Beauxbatons", "Ilvermorny", "Durmstrang"],
+            correct: "Hogwarts"},
         { q: "Who is Harry's godfather?", 
-            a: ["Sirius Black", "Sneverus Snape", "Tonks", "Albus Dumbledore"]},
+            a: ["Sirius Black", "Sneverus Snape", "Tonks", "Albus Dumbledore"],
+            correct: "Sirius Black"},
     ];
 
     function nextQuestion() {
-
+        
         //If there are more questions, show next one
         if (questionIndex <= (questions.length - 1)) {
-
+            
             $("#question").html(questions[questionIndex].q);
             console.log(questions[questionIndex].q);
             console.log(questions[questionIndex].a);
-            answer(); //adds 4 buttons with associated answers inside
+            console.log(questions[questionIndex]);
 
-        } else {
-            timedOutScore++;
-            $(".answerBox").textContent = "Game Over!";
             answer();
+            
+            
+        } else {
+            var score = $("<p>");
+            stop();
+            $(".answerBox").empty();
+            $("#question").text("Game Over!");
+            score.text("You got " + correctScore + "<br>");
+            $(".answerBox").append(score);
+
 
         }
+
     }
     
     function answer(){
+
+        $(".answerBox").empty();
+        // run();
         
         //loop through index in answer and grab the value
         $.each(questions[questionIndex].a, function(index, value) {
             // console.log(index + value);
             
-            var ansBtn = $("<button>").text(value).addClass("ansBtn");//creates new button with answer
+            var ansBtn = $("<button>").text(value).addClass("ansBtn").attr("data-name", value);//creates new button with answer
             
             $(".answerBox").append(ansBtn);//appends new btn to answerBox div
         });
         
-        $(".ansBtn").on("click", function(){
-            alert("I've been clicked");
-            // var btnContent = .textContent($(".ansBtn"))
-            console.log($(".ansBtn").textContent);
-            
-    
-            // if ($(".ansBtn").includes("\b")){
-            //     correctScore++;
-            // } else {
-            //     wrongScore++;
-            // }
-            // questionIndex++;
-        });
-        
+        run();
     }
 
+    $(document).on("click", ".ansBtn", function(){
+        alert("I've been clicked");
+
+        var x = $(this).attr("data-name");
+        console.log(x);
+        
+        
+        if (x === questions[questionIndex].correct) {
+            alert("it is correct");
+            correctScore++;
+        } else {
+            wrongScore++;
+        }
+        
+        questionIndex++;
+        nextQuestion();
+        
+        
+    });
+    
 
     function run() { //full timer function
+        count = 30;
         
         //resets timer to stop extra instances
         clearInterval(interCount);
@@ -86,6 +108,8 @@ $(document).ready(function() {
         if (count === 0 ) {
             stop(); 
             alert("Time's Up!");
+            questionIndex++;
+            nextQuestion();
         }
 
     }
@@ -96,10 +120,10 @@ $(document).ready(function() {
 
     //Initializes Game
     $("#start").click(function(){
+        run(); // call to start timer & all associated functions
         
         $(this).hide(); //hides start button after click
               
-        run(); // call to start timer & all associated functions
         
         nextQuestion(); //shows question
         
