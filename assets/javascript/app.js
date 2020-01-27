@@ -26,72 +26,74 @@ $(document).ready(function() {
         //If there are more questions, show next one
         if (questionIndex <= (questions.length - 1)) {
             
+            //writes question to html question box in html dynamically
             $("#question").html(questions[questionIndex].q);
-            console.log(questions[questionIndex].q);
-            console.log(questions[questionIndex].a);
-            console.log(questions[questionIndex]);
 
-            answer();
+            answer(); //refreshes ans btns to match new questions   
             
+        } 
+        else { //no more questions
             
-        } else {
-            var score = $("<p>");
-            stop();
-            $(".answerBox").empty();
+            stop(); //stops html timer
+
+            $(".answerBox").empty();//empties the ans div, so btns dont stack
+            
             $("#question").text("Game Over!");
-            score.text("You got " + correctScore + "<br>");
-            $(".answerBox").append(score);
+            
+            //when all questions are "answered"					
+            $(".answerBox").html("You got " + correctScore + " correct!<br>"  
+            
+                                + "You got " + wrongScore + " wrong!<br>" 
 
+                                + "You missed " + timedOutScore);
 
         }
-
     }
     
     function answer(){
 
-        $(".answerBox").empty();
-        // run();
-        
+        $(".answerBox").empty(); //empties the ans div, so btns dont stack
+               
         //loop through index in answer and grab the value
         $.each(questions[questionIndex].a, function(index, value) {
-            // console.log(index + value);
             
             var ansBtn = $("<button>").text(value).addClass("ansBtn").attr("data-name", value);//creates new button with answer
             
             $(".answerBox").append(ansBtn);//appends new btn to answerBox div
         });
         
-        run();
+        run(); //restarts html timer after each ans
     }
 
+    //Event listening for any click in the document with class ansBtn
     $(document).on("click", ".ansBtn", function(){
-        alert("I've been clicked");
 
-        var x = $(this).attr("data-name");
+        var x = $(this).attr("data-name"); //variable to grab btn value
         console.log(x);
         
-        
+        //comparison of user choice to correct answer
         if (x === questions[questionIndex].correct) {
-            alert("it is correct");
-            correctScore++;
+            
+            correctScore++; //if correct, adds one to the score
+
         } else {
-            wrongScore++;
+
+            wrongScore++; //if wrong, adds one to wrong score
+
         }
         
-        questionIndex++;
-        nextQuestion();
-        
-        
+        questionIndex++; //either way adds one to question index for nextQues function below
+        nextQuestion();               
     });
     
-
+    //Beginning of Clock Functions
     function run() { //full timer function
-        count = 30;
+        count = 30; //reset html count to 30 each time
         
         //resets timer to stop extra instances
         clearInterval(interCount);
         
-        //time decreasing each second
+        //timer decreasing each second
         interCount = setInterval(decrement, 1000);
 
     }
@@ -106,32 +108,28 @@ $(document).ready(function() {
 
         //what happens when time and var timer reaches zero
         if (count === 0 ) {
-            stop(); 
+
+            stop(); //stops the clock
             alert("Time's Up!");
-            questionIndex++;
+            questionIndex++; //adds one to question index for nextQues function below
             nextQuestion();
         }
-
     }
 
     function stop(){ //stops timer
-        clearInterval(interCount);
+        clearInterval(interCount);//resets/stop timer to stop extra instances
     }
+    //End of clock functions
 
     //Initializes Game
     $("#start").click(function(){
+
         run(); // call to start timer & all associated functions
         
         $(this).hide(); //hides start button after click
               
-        
         nextQuestion(); //shows question
         
     });
-    
-    console.log(correctScore);
-    console.log(wrongScore);
-    console.log(timedOutScore);
-
-    
+       
 });
