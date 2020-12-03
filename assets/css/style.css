@@ -1,0 +1,35 @@
+@font-face {
+    font-family: HarryP;
+    src: url("../fonts/HarryP_font/HARRYP__.TTF");
+}
+
+.main {
+    background-image: url("../images/index.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 10%;
+    /* height:max-content; */
+}
+/* .selector-for-some-widget {
+    box-sizing: content-box;
+} */
+
+.display-5 {
+  color: #E9BF47;
+  font-family: HarryP;
+  font-size: 7em;
+  -webkit-text-stroke: 2px black;
+	/* margin: 10% auto; */
+    /* padding-top: 41px; */
+    text-align: center;
+}
+
+.jumbotron {
+	padding: 4rem 2rem;
+	margin: 0% 14%;
+	height: max-content;
+}
+
+
+
