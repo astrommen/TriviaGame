@@ -1,35 +1,97 @@
 @font-face {
-    font-family: HarryP;
-    src: url("../fonts/HarryP_font/HARRYP__.TTF");
+  font-family: HarryP;
+  src: url("../fonts/HarryP_font/HARRYP__.TTF");
+}
+
+@font-face {
+  font-family: Lumos;
+  src: url("../fonts/lumos-1658/LUMOS.TTF");
+}
+
+@font-face {
+  font-family: MagicSchool;
+  src: url("../fonts/magic-school-3161/MagicSchoolTwo-4n5D.ttf");
+}
+
+@font-face {
+  font-family: ILove;
+  src: url("../fonts/djb-i-love-a-ginger-20634/DjbILoveAGinger-18XZ.ttf");
+}
+
+body {
+  background-color: #010102;
+}
+
+.container-fluid {
+  padding: 9em 0 0;
 }
 
 .main {
-    background-image: url("../images/index.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 10%;
-    /* height:max-content; */
+  background-image: url("../images/index.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  padding-top: 6%;
+  padding-bottom: 11%;
 }
-/* .selector-for-some-widget {
-    box-sizing: content-box;
-} */
 
 .display-5 {
   color: #E9BF47;
   font-family: HarryP;
-  font-size: 7em;
+  font-size: 10em;
   -webkit-text-stroke: 2px black;
-	/* margin: 10% auto; */
-    /* padding-top: 41px; */
-    text-align: center;
+  text-align: center;
 }
 
 .jumbotron {
 	padding: 4rem 2rem;
 	margin: 0% 14%;
-	height: max-content;
+  height: max-content;
+  background-color: #1D0F0A;
+  opacity: 90%;
+  /* display: none; */
 }
 
+#start {
+  width: 70%;
+  margin: 0 14.75%;
+  padding-bottom: 6px;
+  border-radius: 8px;
+  border: black;
+  font-family: MagicSchool;
+  font-size: 3em;
+  color: #F6F5F4;
+  background-color: #92582A;
+}
 
+.container {
+  display: grid;
+  justify-items: center;
+  font-size: 1.5em;
+}
+
+.timerBox {
+  margin-bottom: 20px;
+  font-family: Lumos;
+  color: #996724;
+}
+
+.questionBox {
+  font-family: Ilove;
+  color: white;
+  display: grid;
+  justify-items: center;
+}
+
+.answerBox {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ansBtn {
+  margin-bottom: 4px;
+  border-radius: 8px;
+}
 
